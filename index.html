@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+</head>
+
+<body>
+
+    <div id="quiz-container"></div>
+    <button id="submit-btn">Submit</button>
+
+    <script>
+
+        async function loadQuiz() {
+            try {
+                const response = await fetch('quiz.json');
+                const questions = await response.json();
+                displayQuiz(questions);
+            } catch (error) {
+                console.error('Error loading quiz:', error);
+            }
+        }
+
+
+        function displayQuiz(questions) {
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = '';
+
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+
+                const questionText = document.createElement('p');
+                questionText.textContent = `Question ${index + 1}: ${question.question}`;
+                questionDiv.appendChild(questionText);
+
+                question.options.forEach((option, optionIndex) => {
+                    const optionLabel = document.createElement('label');
+                    const optionInput = document.createElement('input');
+
+                    optionInput.type = 'radio';
+                    optionInput.name = `question_${index}`;
+                    optionInput.value = optionIndex;
+
+
+                    const savedAnswer = localStorage.getItem(`question_${index}`);
+                    if (savedAnswer !== null && savedAnswer == optionIndex) {
+                        optionInput.checked = true;
+                    }
+
+                    optionLabel.appendChild(optionInput);
+                    optionLabel.appendChild(document.createTextNode(option));
+                    questionDiv.appendChild(optionLabel);
+                    questionDiv.appendChild(document.createElement('br'));
+                });
+
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+
+        function saveAnswers(questions) {
+            questions.forEach((question, index) => {
+                const selectedOption = document.querySelector(`input[name="question_${index}"]:checked`);
+                if (selectedOption) {
+                    localStorage.setItem(`question_${index}`, selectedOption.value);
+                }
+            });
+
+            alert('Answers saved!');
+        }
+
+
+        document.getElementById('submit-btn').addEventListener('click', async () => {
+            const response = await fetch('quiz.json');
+            const questions = await response.json();
+            saveAnswers(questions);
+        });
+
+
+        loadQuiz();
+    </script>
+
+</body>
+
+</html>

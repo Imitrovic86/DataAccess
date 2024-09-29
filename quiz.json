@@ -1,0 +1,22 @@
+[
+    {
+        "question": "Which one is correct team name in NBA?",
+        "options": ["New York Bulls", "Los Angeles Kings", "Golden State Warriors", "Houston Rockets"],
+        "correctAnswer": 2
+    },
+    {
+        "question": "'Namaste' is a traditional greeting in which Asian language?",
+        "options": ["Hindi", "Mandarin", "Nepalese", "Thai"],
+        "correctAnswer": 0
+    },
+    {
+        "question": "The Spree river flows through which major European capital city?",
+        "options": ["Berlin", "Paris", "Rome", "London"],
+        "correctAnswer": 0
+    },
+    {
+        "question": "Which famous artist had both a 'Rose Period' and a 'Blue Period'?",
+        "options": ["Pablo Picasso", "Vincent van Gogh", "Salvador Dalí", "Edgar Degas"],
+        "correctAnswer": 0
+    }
+]
